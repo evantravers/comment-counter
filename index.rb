@@ -18,7 +18,7 @@ get '/' do
   # facebook magic
   if params['code']
     @code = params['code']
-    redirect to("https://graph.facebook.com/oauth/access_token?client_id=#{Id}&redirect_uri=http://#{Hostname}:4567&client_secret=#{Secret}&code=#{@code}")
+    redirect to("https://graph.facebook.com/oauth/access_token?client_id=#{Id}&redirect_uri=http://#{Hostname}&client_secret=#{Secret}&code=#{@code}")
   end
   haml :index
 end
