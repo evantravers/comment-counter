@@ -2,20 +2,29 @@ require 'sinatra'
 require 'haml'
 require 'sass'
 require 'compass'
+require 'yaml'
+require 'pry'
+
+
+keys = YAML::load(File.read('config.yml'))
+Id = keys['facebook']['id'].to_i
+Secret = keys['facebook']['secret']
+
+get '/' do
+  haml :index
+end
 
 # facebook is sending us magic
 get '/?code=*' do
   @code = params[:splat]
+  binding.pry
+  redirect '/'
   # TODO authenticate
-  # https://graph.facebook.com/oauth/access_token?client_id=343543839017091&redirect_uri=#{request.url}&client_secret=c78c34e1056c2ba6b33238fa50088c13&code=#{@code}
+  # https://graph.facebook.com/oauth/access_token?client_id=#{Id}&redirect_uri=#{request.url}&client_secret=#{Secret}&code=#{@code}
 end
 
 get '*?error_reason*' do
   haml :error
-end
-
-get '/' do
-  haml :index
 end
 
 post '/' do
