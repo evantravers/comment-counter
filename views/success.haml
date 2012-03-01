@@ -18,5 +18,5 @@
         .content
           %p
             you are a winner! your word count is:
-            %a{href: "https://graph.facebook.com/#{@comment_id}/comments?access_token=#{@key}"}
+            %a{href: "https://graph.facebook.com/#{@comment_id}/comments?access_token=#{session[:code]}"}
               this is a link
