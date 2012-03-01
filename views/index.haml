@@ -16,10 +16,17 @@
             prepare for massive win
       .row
         .content
-          %form{class: 'nice', method: 'post', action: '/'}
+          - if accesscode?
+            %form{class: 'nice', method: 'post', action: '/'}
+              %p
+                put in the comment thread id of the thread you are looking for, it looks like
+                %br
+                https://www.facebook.com/[some user]/posts/[the id]
+              %input(type='text' name='id' id='id' value='' placeholder='Thread ID' class='input-text')/
+              %input(type='submit' name='submit' id='submit' value='magic!' class='large blue radius button')/
+          - else
             %p
-              put in the comment thread id of the thread you are looking for, it looks like
-              %br
-              https://www.facebook.com/[some user]/posts/[the id]
-            %input(type='text' name='id' id='id' value='' placeholder='Thread ID' class='input-text')/
-            %input(type='submit' name='submit' id='submit' value='magic!' class='large blue radius button')/
+              you need a gorram access code!
+            %h3
+              time to
+              %a{href: "https://www.facebook.com/dialog/oauth?client_id=343543839017091&redirect_uri=#{request.url}"} auth up!
