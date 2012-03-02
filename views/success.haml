@@ -20,3 +20,7 @@
             you are a winner! your word count is:
             %a{href: "https://graph.facebook.com/#{@comment_id}/comments?access_token=#{session[:access_token]}"}
               this is a link
+      .row
+        .footer
+          - if loggedin?
+            %a{href: '/logout'} log out
