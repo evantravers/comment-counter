@@ -65,7 +65,7 @@ post '/' do
       end
     end
   end
-  @words.sort_by {|k,v| v}.reverse
+  @words = @words.to_a.sort_by! {|k,v| v}.reverse
   haml :success
 end
 
