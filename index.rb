@@ -9,11 +9,15 @@ require 'pry'
 enable :sessions
 
 configure do
-  Hostname = keys['facebook']['hostname']
-  if RANK_ENV not 'production'
+  if ENV['RACK_ENV'] != 'production'
     keys = YAML::load(File.read('config.yml'))
+    Hostname = keys['facebook']['hostname']
     Id = keys['facebook']['id'].to_i
     Secret = keys['facebook']['secret']
+  else
+    Hostname = "http://#{ENV['URL']}"
+    Id = ENV['Id']
+    Secret = ENV['secret']
   end
 end
 
