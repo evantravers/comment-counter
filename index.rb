@@ -21,7 +21,6 @@ before do
     :callback => "http://#{ENV['URL'] || @@config['Hostname']}/callback/",
     :token => session[:access_token]
   )
-  binding.pry
 end
 
 get '/' do
