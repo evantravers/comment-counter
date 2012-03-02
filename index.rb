@@ -46,9 +46,10 @@ post '/' do
   @request = "https://graph.facebook.com/#{@post_id}/comments?access_token=#{session[:access_token]}"
   @json = JSON.parse HTTParty.get(@request).response.body
   # while there is data
+  @messages
   while not @json['data'].empty?
     @json['data'].each do | comment |
-      @messages << comment['message']
+      @messages.append comment['message']
     end
     @request = @json['paging']['next']
     @json = JSON.parse HTTParty.get(@request).response.body
