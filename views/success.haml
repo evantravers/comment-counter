@@ -19,7 +19,9 @@
           %p
             you are a winner!
           %p
-            = @messages
+            - @messages.each do | item |
+              %li
+                = item
           %a{href: '/'}
             %h2 AGAIN!
       .row
