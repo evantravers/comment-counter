@@ -43,6 +43,11 @@ post '/' do
   haml :success
 end
 
+get '/logout' do
+    session.delete(:user)
+    redirect '/'
+end
+
 # style sheet rules
 get '/style.css' do
   content_type 'text/css', :charset => 'utf-8'

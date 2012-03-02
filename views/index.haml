@@ -31,4 +31,8 @@
               you need a gorram access code!
             %h3
               time to
-              %a{href: "/auth"} auth up!
+              %a{href: '/auth'} auth up!
+      .row
+        .footer
+          - if @user
+            %a{href: '/logout'} log out
