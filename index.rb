@@ -6,29 +6,19 @@ require 'yaml'
 require 'pry'
 require 'facebook_oauth'
 
-enable :sessions
-
 # get all the config in
 configure do
-  if ENV['RACK_ENV'] != 'production'
-    keys = YAML::load(File.read('config.yml'))
-    Hostname = keys['facebook']['hostname']
-    Id = keys['facebook']['id'].to_i
-    Secret = keys['facebook']['secret']
-  else
-    Hostname = "http://#{ENV['URL']}"
-    Id = ENV['Id']
-    Secret = ENV['Secret']
-  end
+  enable :sessions
+  @@config = YAML.load_file('config.yml') rescue nil || {}
 end
 
 before do
   next if request.path_info =~ /ping$/
   @user = session[:user]
-  @client = FacebookOAuth::Client.new (
-    :application_id => Id
-    :application_secret => Secret
-    :callback => Hostname
+  @client = FacebookOAuth::Client.new(
+    :application_id => ENV['Id'] || @@config['Id'],
+    :application_secret => ENV['Secret'] || @@config['Secret'],
+    :callback => ENV['Hostname'] || @@config['Hostname'],
     :token => session[:access_token]
   )
 end
@@ -38,7 +28,7 @@ get '/' do
 end
 
 get '/auth' do
-  reirect @client.authorize_url
+  redirect @client.authorize_url
 end
 
 get '/callback' do
