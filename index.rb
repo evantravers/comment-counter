@@ -4,6 +4,8 @@ require 'sass'
 require 'compass'
 require 'yaml'
 require 'pry'
+require 'uri'
+require 'net/http'
 
 
 enable :sessions
@@ -26,7 +28,7 @@ get '/' do
   if params['code']
     @code = params['code']
     # time to get the access token
-    response = @access_token.get("https://graph.facebook.com/oauth/access_token?client_id=#{Id}&redirect_uri=#{Hostname}/&client_secret=#{Secret}&code=#{@code}")
+    response = Net::HTTP.get_print URI.parse("https://graph.facebook.com/oauth/access_token?client_id=#{Id}&redirect_uri=#{Hostname}/&client_secret=#{Secret}&code=#{@code}")
   end
   haml :index
 end
