@@ -16,7 +16,7 @@
             prepare for massive win
       .row
         .content
-          - if not @user
+          - if loggedin?
             %form{class: 'nice', method: 'post', action: '/'}
               %p
                 your thingy is 
@@ -34,5 +34,5 @@
               %a{href: '/auth'} auth up!
       .row
         .footer
-          - if @user
+          - if loggedin?
             %a{href: '/logout'} log out

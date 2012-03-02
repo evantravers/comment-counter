@@ -53,3 +53,10 @@ get '/style.css' do
   content_type 'text/css', :charset => 'utf-8'
   sass :stylesheet
 end
+
+#helpers
+helpers do
+  def loggedin?
+    not session[:user].nil?
+  end
+end
