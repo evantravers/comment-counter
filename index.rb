@@ -17,7 +17,7 @@ configure do
   else
     Hostname = "http://#{ENV['URL']}"
     Id = ENV['Id']
-    Secret = ENV['secret']
+    Secret = ENV['Secret']
   end
 end
 
