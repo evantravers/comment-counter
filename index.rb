@@ -54,6 +54,17 @@ post '/' do
     @request = @json['paging']['next']
     @json = JSON.parse HTTParty.get(@request).response.body
   end
+  @words = {}
+  @messages.each do |message|
+    words = message.split(/\W+/)
+    words.each do |word|
+      if @words.has_key?(word)
+        @words[word] = @words[word]+1
+      else
+        @words[word] = 1
+      end
+    end
+  end
   haml :success
 end
 

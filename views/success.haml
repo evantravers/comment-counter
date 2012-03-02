@@ -19,9 +19,9 @@
           %p
             you are a winner!
           %p
-            - @messages.each do |item|
+            - @words.each do |word|
               %li
-                = item
+                = "#{word} - #{@words['word']}"
           %a{href: '/'}
             %h2 AGAIN!
       .row
