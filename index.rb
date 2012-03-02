@@ -18,7 +18,7 @@ before do
   @client = FacebookOAuth::Client.new(
     :application_id => ENV['Id'] || @@config['Id'],
     :application_secret => ENV['Secret'] || @@config['Secret'],
-    :callback => "http://#{ENV['URL'] || @@config['Hostname']}/callback/",
+    :callback => "http://#{ENV['URL'] || @@config['Hostname']}/callback",
     :token => session[:access_token]
   )
 end
@@ -28,7 +28,7 @@ get '/' do
 end
 
 get '/auth' do
-  redirect @client.authorize_url
+  redirect @client.authorize_url(:scope => '')
 end
 
 get '/callback' do
