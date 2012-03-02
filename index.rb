@@ -1,7 +1,6 @@
 require 'sinatra'
 require 'haml'
 require 'sass'
-require 'compass'
 require 'yaml'
 require 'pry'
 require 'facebook_oauth'
