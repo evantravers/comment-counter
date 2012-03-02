@@ -18,7 +18,7 @@ before do
   @client = FacebookOAuth::Client.new(
     :application_id => ENV['Id'] || @@config['Id'],
     :application_secret => ENV['Secret'] || @@config['Secret'],
-    :callback => "#{ENV['Hostname'] || @@config['Hostname']}/callback/",
+    :callback => "http://#{ENV['Hostname'] || @@config['Hostname']}/callback/",
     :token => session[:access_token]
   )
 end
