@@ -42,7 +42,8 @@ end
 
 post '/' do
   @comment_id = params[:id]
-  @messages = JSON.parse HTTParty.get("https://graph.facebook.com/#{@comment_id}/comments?access_token=#{session[:access_token]}").response.body
+  @json = JSON.parse HTTParty.get("https://graph.facebook.com/#{@comment_id}/comments?access_token=#{session[:access_token]}").response.body
+  @messages = @json.data
   haml :success
 end
 
