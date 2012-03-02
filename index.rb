@@ -4,6 +4,8 @@ require 'sass'
 require 'yaml'
 require 'pry'
 require 'facebook_oauth'
+require 'json'
+require 'httparty'
 
 # get all the config in
 configure do
@@ -39,6 +41,7 @@ end
 
 post '/' do
   @comment_id = params[:id]
+  @messages = JSON.parse HTTParty.get {"https://graph.facebook.com/#{@comment_id}/comments?access_token=#{session[:access_token]}"}
   haml :success
 end
 
