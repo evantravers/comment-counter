@@ -41,9 +41,16 @@ get '/callback' do
 end
 
 post '/' do
-  @comment_id = params[:id]
-  @json = JSON.parse HTTParty.get("https://graph.facebook.com/#{@comment_id}/comments?access_token=#{session[:access_token]}").response.body
-  @messages = @json.data
+  # append the data to the hash, follow the paging link
+  @post_id = params[:id]
+  @request = "https://graph.facebook.com/#{@post_id}/comments?access_token=#{session[:access_token]}"
+  @json = JSON.parse HTTParty.get(@request).response.body
+  # while there is data
+  while not @request['data'].empty?
+    @request['data'].each do | comment |
+      @messages << comment['message']
+    end
+  end
   haml :success
 end
 
