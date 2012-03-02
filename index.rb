@@ -43,17 +43,23 @@ end
 post '/' do
   @post_id = params[:id]
   @request = "https://graph.facebook.com/#{@post_id}/comments?access_token=#{session[:access_token]}"
+  puts "time to go to #{@request} town"
   @json = JSON.parse HTTParty.get(@request).response.body
+  puts "request made"
   @messages = []
   # while there is data
   until @json['data'].empty?
+    puts "not empty"
     @json['data'].each do | comment |
+      puts "found message #{comment['message']}"
       @messages << comment['message']
     end
     # follow the paging link
     @request = @json['paging']['next']
+    puts "time to go to #{@request} town"
     @json = JSON.parse HTTParty.get(@request).response.body
   end
+  puts "!!! got out of request land"
   haml :success
 end
 

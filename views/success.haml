@@ -19,8 +19,7 @@
           %p
             you are a winner!
           %p
-            = @messages
-            -# @messages.each do |item|
+            - @messages.each do |item|
               %li
                 = item
           %a{href: '/'}
