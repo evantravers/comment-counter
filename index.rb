@@ -41,16 +41,16 @@ get '/callback' do
 end
 
 post '/' do
-  # append the data to the hash, follow the paging link
   @post_id = params[:id]
   @request = "https://graph.facebook.com/#{@post_id}/comments?access_token=#{session[:access_token]}"
   @json = JSON.parse HTTParty.get(@request).response.body
+  @messages = []
   # while there is data
-  @messages
   while not @json['data'].empty?
     @json['data'].each do | comment |
-      @messages.append comment['message']
+      @messages << comment['message']
     end
+    # follow the paging link
     @request = @json['paging']['next']
     @json = JSON.parse HTTParty.get(@request).response.body
   end
