@@ -44,26 +44,22 @@ post '/' do
   @post_id = params[:id]
   @request = "https://graph.facebook.com/#{@post_id}/comments?access_token=#{session[:access_token]}"
   @json = JSON.parse HTTParty.get(@request).response.body
-  @messages = []
+  @words = {}
   # while there is data
   until @json['data'].empty?
     @json['data'].each do | comment |
-      @messages << comment['message']
+      words = comment.split(/\W+/)
+      words.each do |word|
+        if @words.has_key?(word)
+          @words[word] = @words[word]+1
+        else
+          @words[word] = 1
+        end
+      end
     end
     # follow the paging link
     @request = @json['paging']['next']
     @json = JSON.parse HTTParty.get(@request).response.body
-  end
-  @words = {}
-  @messages.each do |message|
-    words = message.split(/\W+/)
-    words.each do |word|
-      if @words.has_key?(word)
-        @words[word] = @words[word]+1
-      else
-        @words[word] = 1
-      end
-    end
   end
   @words = @words.to_a.sort_by! {|k,v| v}.reverse
   haml :success
