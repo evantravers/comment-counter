@@ -71,6 +71,6 @@ end
 #helpers
 helpers do
   def loggedin?
-    !session[:user].nil?
+    not session[:user].nil?
   end
 end
