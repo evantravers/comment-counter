@@ -44,8 +44,8 @@ post '/' do
 end
 
 get '/logout' do
-    session.delete(:user)
-    redirect '/'
+  session.delete(:user)
+  redirect '/'
 end
 
 # style sheet rules
