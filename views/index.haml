@@ -13,24 +13,26 @@
       .row
         .header
           %h1
-            prepare for massive win
+            Prepare for massive win
       .row
         .content
+          %p
+            This app allows you to count the frequency that words are used in comments on a facebook post. It's still buggy, so bear with me.
           - if @user
             %form{class: 'nice', method: 'post', action: '/'}
               %p
-                good job! everything is nice and shiny now!
+                Good job! Everything is nice and shiny now!
               %p
-                put in the comment thread id of the thread you are looking for, it looks like
+                Put in the comment thread id of the thread you are looking for, it looks like
                 %br
                 https://www.facebook.com/[some user]/posts/[the id]
               %input(type='text' name='id' id='id' value='' placeholder='Thread ID' class='input-text')/
               %input(type='submit' name='submit' id='submit' value='magic!' class='large blue radius button')/
           - else
             %p
-              you need a gorram access code!
+              You need a gorram access code!
             %h3
-              time to
+              Time to
               %a{href: '/auth'} auth up!
       .row
         .footer
