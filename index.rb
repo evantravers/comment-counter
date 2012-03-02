@@ -48,7 +48,7 @@ post '/' do
   # while there is data
   until @json['data'].empty?
     @json['data'].each do | comment |
-      words = comment.split(/\W+/)
+      words = comment['message'].split(/\W+/)
       words.each do |word|
         if @words.has_key?(word)
           @words[word] = @words[word]+1
