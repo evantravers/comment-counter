@@ -4,9 +4,7 @@ require 'sass'
 require 'compass'
 require 'yaml'
 require 'pry'
-require 'uri'
-require 'net/http'
-
+require 'facebook_oauth'
 
 enable :sessions
 
