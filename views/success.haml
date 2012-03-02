@@ -26,3 +26,5 @@
             %h2 AGAIN!
       .row
         .footer
+          - if @user
+            %a{href: '/logout'} log out
