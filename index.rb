@@ -8,6 +8,7 @@ require 'facebook_oauth'
 
 enable :sessions
 
+# get all the config in
 configure do
   if ENV['RACK_ENV'] != 'production'
     keys = YAML::load(File.read('config.yml'))
@@ -21,18 +22,30 @@ configure do
   end
 end
 
+before do
+  next if request.path_info =~ /ping$/
+  @user = session[:user]
+  @client = FacebookOAuth::Client.new (
+    :application_id => Id
+    :application_secret => Secret
+    :callback => Hostname
+    :token => session[:access_token]
+  )
+end
+
 get '/' do
-  # facebook magic
-  if params['code']
-    @code = params['code']
-    # time to get the access token
-    response = Net::HTTP.get_print URI.parse("https://graph.facebook.com/oauth/access_token?client_id=#{Id}&redirect_uri=#{Hostname}/&client_secret=#{Secret}&code=#{@code}")
-  end
   haml :index
 end
 
-get '*?error_reason*' do
-  haml :error
+get '/auth' do
+  reirect @client.authorize_url
+end
+
+get '/callback' do
+  access_token = @client.authorize(:code => params[:code])
+  session[:access_token] = access_token.token
+  session[:user] = @client.me.info['name']
+  redirect '/'
 end
 
 post '/' do
@@ -49,6 +62,6 @@ end
 #helpers
 helpers do
   def accesscode?
-    not session[:code].nil?
+    not session[:access_token].nil?
   end
 end
