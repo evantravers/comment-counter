@@ -18,10 +18,16 @@
         .content
           %p
             you are a winner!
-          %p
+          %table
+            %thead
+              %tr
+                %th Word
+                %th Count
+            %tbody
             - @words.each do |word|
-              %li
-                = "#{word} - #{@words['word']}"
+              %tr
+                %td= "#{word[0]}"
+                %td= "#{word[1]}"
           %a{href: '/'}
             %h2 AGAIN!
       .row
