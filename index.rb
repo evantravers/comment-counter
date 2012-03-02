@@ -46,7 +46,7 @@ post '/' do
   @json = JSON.parse HTTParty.get(@request).response.body
   @messages = []
   # while there is data
-  while not @json['data'].empty?
+  until @json['data'].empty?
     @json['data'].each do | comment |
       @messages << comment['message']
     end
