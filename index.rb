@@ -4,15 +4,18 @@ require 'sass'
 require 'compass'
 require 'yaml'
 require 'pry'
-require 'uri'
 
 
 enable :sessions
 
-keys = YAML::load(File.read('config.yml'))
-Id = keys['facebook']['id'].to_i
-Secret = keys['facebook']['secret']
-Hostname = keys['facebook']['hostname']
+configure do
+  Hostname = keys['facebook']['hostname']
+  if RANK_ENV not 'production'
+    keys = YAML::load(File.read('config.yml'))
+    Id = keys['facebook']['id'].to_i
+    Secret = keys['facebook']['secret']
+  end
+end
 
 get '/' do
   # facebook magic
