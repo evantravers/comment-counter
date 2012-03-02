@@ -16,7 +16,7 @@
             prepare for massive win
       .row
         .content
-          - if accesscode?
+          - if not @user
             %form{class: 'nice', method: 'post', action: '/'}
               %p
                 your thingy is 

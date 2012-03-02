@@ -53,10 +53,3 @@ get '/style.css' do
   content_type 'text/css', :charset => 'utf-8'
   sass :stylesheet
 end
-
-#helpers
-helpers do
-  def accesscode?
-    not session[:access_token].nil?
-  end
-end
