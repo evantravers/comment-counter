@@ -27,7 +27,7 @@ get '/' do
 end
 
 get '/auth' do
-  redirect @client.authorize_url(:scope => '')
+  redirect @client.authorize_url(:scope => 'user_photos, friends_photos')
 end
 
 get '/callback' do
