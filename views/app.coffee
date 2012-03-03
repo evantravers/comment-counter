@@ -1,0 +1,3 @@
+$->
+  $("#searchbutton").click ->
+    $(".searchbutton").show()

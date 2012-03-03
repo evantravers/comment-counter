@@ -70,8 +70,13 @@ get '/logout' do
   redirect '/'
 end
 
-# style sheet rules
+# asset rules
 get '/style.css' do
   content_type 'text/css', :charset => 'utf-8'
   sass :stylesheet
+end
+
+get '/app.css' do
+  content_type "text/javascript"
+  coffee :app
 end
