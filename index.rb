@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'haml'
 require 'sass'
+require 'coffee-script'
 require 'yaml'
 require 'pry'
 require 'pp'
