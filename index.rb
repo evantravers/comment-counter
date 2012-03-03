@@ -1,7 +1,6 @@
 require 'sinatra'
 require 'haml'
 require 'sass'
-require 'coffee-script'
 require 'yaml'
 require 'pry'
 require 'pp'
@@ -75,9 +74,4 @@ end
 get '/style.css' do
   content_type 'text/css', :charset => 'utf-8'
   sass :stylesheet
-end
-
-get '/coffee.js' do
-  content_type "text/javascript"
-  coffee :app
 end
