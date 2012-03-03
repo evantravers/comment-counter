@@ -42,6 +42,7 @@ end
 
 post '/' do
   @post_id = params[:id]
+  @search_terms = params[:search].split(/\W+/)
   @request = "https://graph.facebook.com/#{@post_id}/comments?access_token=#{session[:access_token]}"
   @json = JSON.parse HTTParty.get(@request).response.body
   @words = {}
@@ -50,10 +51,21 @@ post '/' do
     @json['data'].each do | comment |
       words = comment['message'].split(/\W+/)
       words.each do |word|
-        if @words.has_key?(word)
-          @words[word] = @words[word]+1
+        if @search_terms.empty?
+          if @words.has_key?(word)
+            @words[word] = @words[word]+1
+          else
+            @words[word] = 1
+          end
         else
-          @words[word] = 1
+          # they are looking for something particular
+          if @search_terms.include? word
+            if @words.has_key?(word)
+              @words[word] = @words[word]+1
+            else
+              @words[word] = 1
+            end
+          end
         end
       end
     end
