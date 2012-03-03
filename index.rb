@@ -76,7 +76,7 @@ get '/style.css' do
   sass :stylesheet
 end
 
-get '/app.css' do
+get '/coffee.js' do
   content_type "text/javascript"
   coffee :app
 end
