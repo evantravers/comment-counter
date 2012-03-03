@@ -1,3 +1,5 @@
-A simple sinatra app to count words related to a facebook post.
+A simple sinatra app to count word frequency in comments to a facebook post. Also search.
 
-requires a config.yml file setup like the sample.yml file in the repo
+I started this to start poking around in sinatra. It kind of got out of hand.
+
+It requires a config.yml file setup like the sample.yml file in the repo. If you want to deploy to heroku, you'll need to set the same variables in the enviroment config.
