@@ -17,8 +17,6 @@
             Prepare for massive win
       .row
         .content
-          %p
-            This app allows you to count the frequency that words are used in comments on a facebook post. It's still buggy, so bear with me.
           - if @user
             %form{class: 'nice', method: 'post', action: '/'}
               %p
@@ -32,12 +30,14 @@
                   looking for a certain term or terms?
               %input(type='text' name='id' id='id' value='' placeholder='Thread ID' class='input-text')/
               .searchbutton
-                %p put in the terms you are searching for
+                %label{for: 'search'} put in the terms you are searching for:
                 %input(type='text' name='search' id='search' value='' placeholder='Search Term' class='input-text')/
               %input(type='submit' name='submit' id='submit' value='magic!' class='large blue radius button')/
           - else
             %p
-              You need a gorram access code!
+              This app allows you to count the frequency that words are used in comments on a facebook post. It's still buggy, so bear with me.
+            %p
+              You need a gorram access code from facebook!
             %h3
               Time to
               %a{href: '/auth'} auth up!
