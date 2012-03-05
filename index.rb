@@ -71,7 +71,6 @@ post '/' do
     end
     # follow the paging link
     @request = @json['paging']['next']
-    sleep 0.5
     @json = JSON.parse HTTParty.get(@request).response.body
   end
   @words = @words.to_a.sort_by! {|k,v| v}.reverse
