@@ -1,39 +1,16 @@
-!!!
-%html
-  %head
-    %title Comment Word Counter
-    %link(rel='stylesheet' media='screen' type='text/css' href='/stylesheets/foundation.css')
-    %link(rel='stylesheet' media='screen' type='text/css' href='/style.css')
-    %script(type='text/javascript' src='/javascripts/jquery.min.js')
-    %script(type='text/javascript' src='/javascripts/foundation.js')
-    %script(type='text/javascript' src='/javascripts/app.js')
-    %script(type='text/javascript' src='/javascripts/modernizr.foundation.js')
-    %script(type='text/javascript' src='/javascripts/main.js')
-  %body
-    .container
-      .row
-        .header
-          %h1
-            the massive win has arrived
-      .row
-        .content
-          %p
-            You are a winner! You found
-            = @words.length
-            words!
-          %table
-            %thead
-              %tr
-                %th Word
-                %th Count
-            %tbody
-            - @words.each do |word|
-              %tr
-                %td= "#{word[0]}"
-                %td= "#{word[1]}"
-          %a{href: '/'}
-            %h2 AGAIN!
-      .row
-        .footer
-          - if @user
-            %a{href: '/logout'} log out
+%p
+  You are a winner! You found
+  = @words.length
+  words!
+%table
+  %thead
+    %tr
+      %th Word
+      %th Count
+  %tbody
+  - @words.each do |word|
+    %tr
+      %td= "#{word[0]}"
+      %td= "#{word[1]}"
+%a{href: '/'}
+  %h2 AGAIN!
