@@ -52,7 +52,7 @@ post '/' do
     @json['data'].each do | comment |
       words = comment['message'].split(/\W+/).map {|x| x.downcase}
       words.each do |word|
-        if not ignore_list.contains? word
+        if not ignore_list.include? word
           if @search_terms.empty?
             if @words.has_key?(word)
               @words[word] = @words[word]+1
