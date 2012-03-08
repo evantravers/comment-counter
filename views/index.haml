@@ -12,12 +12,12 @@
     %input(type='text' name='id' id='id' value='' placeholder='Thread ID' class='input-text')/
     .searchbutton
       %label{for: 'search'} enter search terms:
-      %input(type='text' name='search' id='search' value='' placeholder='Search Term' class='input-text')/
+      %input(type='text' name='search' id='search' value='' placeholder='Search only...' class='input-text')/
       %label{for: 'exclude'} enter terms to hide:
-      %input(type='text' name='exclude' id='exclude' value='' placeholder='Hide from results' class='input-text')/
+      %input(type='text' name='exclude' id='exclude' value='' placeholder='Hide from results...' class='input-text')/
       %label{for: 'include'}
         include most common words:
-        %input(type='checkbox' name='include' id='include' value='')/
+        %input(type='checkbox' name='include' id='include' value='true')/
     %input(type='submit' name='submit' id='submit' value='magic!' class='large blue radius button')/
 - else
   %p
