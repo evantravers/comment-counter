@@ -52,8 +52,8 @@ post '/' do
 
   # emotion codes
   @emotion_index = 0
-  happy_words = ['like', 'love', 'happy', 'excited', 'wonderful', 'fun', 'yes', 'always']
-  sad_words = ['pissed', 'angry', 'hate', 'dislike','mad', 'furious', 'bored', 'no', 'never']
+  happy_words = ['like', 'love', 'happy', 'excited', 'wonderful', 'fun', 'yes', 'always', 'favorite', 'enjoy', 'enjoyed', 'beautiful', 'cool']
+  sad_words = ['pissed', 'angry', 'hate', 'dislike','mad', 'furious', 'bored', 'no', 'never', 'dumb', 'stupid', 'disappointing', 'disappointed']
 
   @request = "https://graph.facebook.com/#{@post_id}/comments?access_token=#{session[:access_token]}"
   @json = JSON.parse HTTParty.get(@request).response.body
@@ -94,4 +94,18 @@ end
 get '/style.css' do
   content_type 'text/css', :charset => 'utf-8'
   sass :stylesheet
+end
+
+helpers do
+  def eval_emotion index
+    if index < 10
+      return "%h4.red ANGRY"
+    else if index < 0
+      return "%h4.orange SAD"
+    else if index < 10
+      return "h4.yellow UNENGAGED"
+    else if index < 20
+      return "h4.green EXCITED"
+    end
+  end
 end
