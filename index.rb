@@ -100,11 +100,11 @@ helpers do
   def eval_emotion index
     if index < 10
       return "%h4.red ANGRY"
-    else if index < 0
+    elsif index < 0
       return "%h4.orange SAD"
-    else if index < 10
+    elsif index < 10
       return "h4.yellow UNENGAGED"
-    else if index < 20
+    elsif index < 20
       return "h4.green EXCITED"
     end
   end
