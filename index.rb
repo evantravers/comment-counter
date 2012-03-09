@@ -82,7 +82,7 @@ post '/' do
     @json = JSON.parse HTTParty.get(@request).response.body
   end
   @words = @words.to_a.sort_by! {|k,v| v}.reverse
-  e_class, emotion = eval_emotion(@emotion_index)
+  @e_class, @emotion = eval_emotion(@emotion_index)
   haml :success
 end
 
