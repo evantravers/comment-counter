@@ -53,7 +53,7 @@ post '/' do
   # emotion codes
   @emotion_index = 0
   happy_words = ['like', 'love', 'happy', 'excited', 'wonderful', 'fun', 'yes', 'always', 'favorite', 'enjoy', 'enjoyed', 'beautiful', 'cool']
-  sad_words = ['pissed', 'angry', 'hate', 'dislike','mad', 'furious', 'bored', 'no', 'never', 'dumb', 'stupid', 'disappointing', 'disappointed']
+  sad_words = ['pissed', 'angry', 'hate', 'dislike','mad', 'furious', 'bored', 'no', 'never', 'dumb', 'stupid', 'disappointing', 'disappointed', 'bitch']
 
   @request = "https://graph.facebook.com/#{@post_id}/comments?access_token=#{session[:access_token]}"
   @json = JSON.parse HTTParty.get(@request).response.body
@@ -102,7 +102,7 @@ helpers do
     if index >= 10
       return 'green', 'EXCITED'
     elsif (0..10).include? index
-      return 'yellow', 'UNENGAGED'
+      return 'yellow', 'HAPPY'
     elsif (-10..0).include? index
       return 'orange', 'BORED'
     elsif index < -10
