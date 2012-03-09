@@ -99,11 +99,11 @@ end
 
 helpers do
   def eval_emotion index
-    if index > 10
+    if index >= 10
       return 'green', 'EXCITED'
-    elsif index > 0 and index < 10
+    elsif (0..10).include? index
       return 'yellow', 'UNENGAGED'
-    elsif index < 10 and index > 0
+    elsif (-10..0).include? index
       return 'orange', 'BORED'
     elsif index < -10
       return 'red', 'ANGRY'
