@@ -83,7 +83,6 @@ post '/' do
   end
   @words = @words.to_a.sort_by! {|k,v| v}.reverse
   @e_class, @emotion = eval_emotion(@emotion_index)
-  puts "class = #{@e_class}, words = #{@emotion}"
   haml :success
 end
 
