@@ -82,6 +82,7 @@ post '/' do
     @json = JSON.parse HTTParty.get(@request).response.body
   end
   @words = @words.to_a.sort_by! {|k,v| v}.reverse
+  e_class, emotion = eval_emotion(@emotion_index)
   haml :success
 end
 
@@ -98,14 +99,14 @@ end
 
 helpers do
   def eval_emotion index
-    if index < 10
-      return "%h4.red ANGRY"
-    elsif index < 0
-      return "%h4.orange SAD"
-    elsif index < 10
-      return "h4.yellow UNENGAGED"
-    elsif index < 20
-      return "h4.green EXCITED"
+    if index > 10
+      return 'green', 'EXCITED'
+    elsif index > 0 and index < 10
+      return 'yellow', 'UNENGAGED'
+    elsif index < 10 and index > 0
+      return 'orange', 'BORED'
+    elsif index < -10
+      return 'red', 'ANGRY'
     end
   end
 end

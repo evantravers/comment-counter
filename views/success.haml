@@ -3,8 +3,9 @@
   = @words.length
   words!
 %p
-  The general emotional aura is 
-  = eval_emotion(@emotion_index)
+  The general emotional aura is
+  %h4{class: e_class}
+    = emotion
 %table
   %thead
     %tr
