@@ -59,22 +59,13 @@ post '/' do
     @json['data'].each do | comment |
       words = comment['message'].split(/\W+/).map {|x| x.downcase}
       words.each do |word|
-        if not ignore_list.include? word and word.length > 1
-          if @search_terms.empty?
-            if @words.has_key?(word)
-              @words[word] = @words[word]+1
-            else
-              @words[word] = 1
-            end
-          else
-            # they are looking for something particular
-            if @search_terms.include? word
-              if @words.has_key?(word)
-                @words[word] = @words[word]+1
-              else
-                @words[word] = 1
-              end
-            end
+        if @search_terms.empty?
+          unless @ignore.include? word or ignore_list.include? word
+            @words.has_key?(word) ?  @words[word] = @words[word]+1 : @words[word] = 1
+          end
+        else
+          if @search_terms.include? word
+            @words.has_key?(word) ?  @words[word] = @words[word]+1 : @words[word] = 1
           end
         end
       end
