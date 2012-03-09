@@ -48,7 +48,12 @@ post '/' do
   # words to ignore
   @ignore = params[:exclude].split(/\W+/).map {|x| x.downcase}
   # include common words?
-  params[:include]=='true' ? ignore_list = [] : ignore_list = ['', ' ', 'the', 'be', 'to', 'of', 'and', 'a', 'in', 'that', 'have', 'i', 'it', 'for', 'not', 'on', 'with', 'he', 'as', 'you', 'do', 'at', 'this', 'but', 'his', 'by', 'from', 'they', 'we', 'say', 'her', 'she', 'or', 'an', 'will', 'my', 'one', 'all', 'would', 'there', 'their', 'what', 'so', 'up', 'out', 'if', 'about', 'who', 'get', 'which', 'go', 'me', 'when', 'make', 'can', 'like', 'time', 'no', 'just', 'him', 'know', 'take', 'person', 'into', 'year', 'your', 'good', 'some', 'could', 'them', 'see', 'other', 'than', 'then', 'now', 'look', 'only', 'come', 'its', 'over', 'think', 'also', 'back', 'after', 'use', 'two', 'how', 'our', 'work', 'first', 'well', 'way', 'even', 'new', 'want', 'because', 'any', 'these', 'give', 'day', 'most', 'us', 'is', 'had', 'am', 'are', 'were', 'oh', 't', 'd', 'ca', 'don', 'did']
+  params[:include]=='true' ? ignore_list = [] : ignore_list = ['', ' ', 'the', 'be', 'to', 'of', 'and', 'a', 'in', 'that', 'have', 'i', 'it', 'for', 'not', 'on', 'with', 'he', 'as', 'you', 'do', 'at', 'this', 'but', 'his', 'by', 'from', 'they', 'we', 'say', 'her', 'she', 'or', 'an', 'will', 'my', 'one', 'all', 'would', 'there', 'their', 'what', 'so', 'up', 'out', 'if', 'about', 'who', 'get', 'which', 'go', 'me', 'when', 'make', 'can', 'time', 'just', 'him', 'know', 'take', 'person', 'into', 'year', 'your', 'good', 'some', 'could', 'them', 'see', 'other', 'than', 'then', 'now', 'look', 'only', 'come', 'its', 'over', 'think', 'also', 'back', 'after', 'use', 'two', 'how', 'our', 'work', 'first', 'well', 'way', 'even', 'new', 'want', 'because', 'any', 'these', 'give', 'day', 'most', 'us', 'is', 'had', 'am', 'are', 'were', 'oh', 't', 'd', 'ca', 'don', 'did']
+
+  # emotion codes
+  @emotion_index = 0
+  happy_words = ['like', 'love', 'happy', 'excited', 'wonderful', 'fun', 'yes', 'always']
+  sad_words = ['pissed', 'angry', 'hate', 'dislike','mad', 'furious', 'bored', 'no', 'never']
 
   @request = "https://graph.facebook.com/#{@post_id}/comments?access_token=#{session[:access_token]}"
   @json = JSON.parse HTTParty.get(@request).response.body
@@ -58,6 +63,9 @@ post '/' do
     @json['data'].each do | comment |
       words = comment['message'].split(/\W+/).map {|x| x.downcase}
       words.each do |word|
+        @emotion_index-=1 if sad_words.include? word
+        @emotion_index+=1 if happy_words.include? word
+
         if @search_terms.empty?
           unless @ignore.include? word or ignore_list.include? word
             @words.has_key?(word) ?  @words[word] = @words[word]+1 : @words[word] = 1
