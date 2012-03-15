@@ -55,7 +55,7 @@ post '/' do
   happy_words = ['like', 'love', 'happy', 'excited', 'wonderful', 'fun', 'yes', 'always', 'favorite', 'enjoy', 'enjoyed', 'beautiful', 'cool']
   sad_words = ['pissed', 'angry', 'hate', 'dislike','mad', 'furious', 'bored', 'no', 'never', 'dumb', 'stupid', 'disappointing', 'disappointed', 'bitch']
 
-  @request = "https://graph.facebook.com/#{@post_id}/comments?access_token=#{session[:access_token]}"
+  @request = "https://graph.facebook.com/#{@post_id}/comments?access_token=#{session[:access_token]}?limit=1000"
   @json = JSON.parse HTTParty.get(@request).response.body
   @words = {}
   # while there is data
